@@ -78,6 +78,7 @@ function App() {
       state.score = Math.max(0, state.score - 50);
       state.message = "The dungeon reset. Start again with cleaner fixes.";
     }
+    sync();
   }
 
   function advanceRoom() {
@@ -86,6 +87,7 @@ function App() {
       state.mode = "won";
       state.score += 250;
       state.message = "Escaped with a QA closeout report.";
+      sync();
       return;
     }
     state.room += 1;
@@ -94,6 +96,7 @@ function App() {
     state.fixes = next.fixes;
     state.hazards = next.hazards;
     state.message = rooms[state.room].objective;
+    sync();
   }
 
   function update(dt: number) {
@@ -121,6 +124,7 @@ function App() {
         fix.collected = true;
         state.score += 40;
         state.message = `Collected ${fix.label}. ${state.fixes.filter((item) => !item.collected).length} fixes left.`;
+        sync();
       }
     }
 
