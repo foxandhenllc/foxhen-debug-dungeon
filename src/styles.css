@@ -47,6 +47,59 @@ h1 { margin: 0 0 1rem; font-size: clamp(3rem,7vw,6rem); line-height: .88; letter
 .stat-grid article { border-radius: 1.2rem; background: rgba(255,255,255,.08); padding: 1rem; }
 .stat-grid span, .stat-grid small { display: block; color: rgba(255,250,244,.62); font-weight: 850; }
 .stat-grid strong { display: block; margin: .35rem 0 .15rem; font-size: 2.1rem; letter-spacing: -.06em; }
+.practice-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: .75rem;
+  align-items: end;
+  margin-top: 1rem;
+}
+.practice-panel label {
+  display: grid;
+  gap: .35rem;
+  color: rgba(255,250,244,.68);
+  font-size: .78rem;
+  font-weight: 950;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.practice-panel select,
+.practice-panel button {
+  min-height: 2.8rem;
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: .95rem;
+  background: rgba(255,255,255,.1);
+  color: #fffaf4;
+  padding: 0 .8rem;
+  font-weight: 900;
+}
+.practice-panel option { color: #080817; }
+.touch-pad {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: .45rem;
+  margin-top: .85rem;
+}
+.touch-pad button {
+  min-height: 2.55rem;
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: .85rem;
+  background: rgba(117,199,177,.16);
+  color: #fffaf4;
+  cursor: pointer;
+  font-weight: 950;
+}
+.fork-card {
+  display: grid;
+  gap: .25rem;
+  margin-top: .85rem;
+  border: 1px solid rgba(255,199,107,.28);
+  border-radius: 1.1rem;
+  background: rgba(255,199,107,.1);
+  padding: .85rem 1rem;
+}
+.fork-card strong { color: #ffc76b; }
+.fork-card span { color: rgba(255,250,244,.74); line-height: 1.45; font-weight: 780; }
 .game-log { margin: 1rem 0 0; border: 1px solid rgba(255,255,255,.13); border-radius: 1.1rem; background: rgba(255,255,255,.07); padding: .85rem 1rem; color: rgba(255,250,244,.76); font-weight: 850; line-height: 1.4; }
 .game-card { padding: .9rem; }
 canvas { display: block; width: 100%; aspect-ratio: 16/10; border-radius: 1.4rem; background: #10131f; outline: 1px solid rgba(255,255,255,.12); }
@@ -63,4 +116,4 @@ canvas { display: block; width: 100%; aspect-ratio: 16/10; border-radius: 1.4rem
 .gate { display: flex; justify-content: space-between; gap: 1rem; border-radius: .9rem; background: rgba(255,255,255,.07); padding: .7rem .8rem; }
 .gate.ok { color: #bff3d2; }
 @media (max-width: 1050px) { main, .prompt-board { grid-template-columns: 1fr; } }
-@media (max-width: 720px) { .site-header { border-radius: 1.4rem; align-items: flex-start; } nav { flex-wrap: wrap; justify-content: flex-end; } .stat-grid { grid-template-columns: 1fr; } }
+@media (max-width: 720px) { .site-header { border-radius: 1.4rem; align-items: flex-start; } nav { flex-wrap: wrap; justify-content: flex-end; } .stat-grid, .practice-panel { grid-template-columns: 1fr; } }

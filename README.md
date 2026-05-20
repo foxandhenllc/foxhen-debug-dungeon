@@ -13,7 +13,8 @@ A fully playable Fox & Hen browser game where each dungeon room is a website bug
 
 - Four maze-style rooms with walls, exits, checkpoints, moving bug enemies, collectibles, switches, health, score, timer, win/loss states, and room progression.
 - Keyboard controls for movement, dash, pulse stun, switch interaction, pause, restart, and fullscreen.
-- Interface buttons for restart, pause/resume, dash, and pulse.
+- Interface buttons for restart, pause/resume, dash, pulse, report export, room practice, and touch nudges.
+- Local best-score storage and JSON run reports for portfolio demos or fork testing.
 - Deterministic test hooks exposed as `window.render_game_to_text` and `window.advanceTime`.
 - No backend, auth, external service calls, production data, or customer work.
 
@@ -34,3 +35,10 @@ npm install
 npm run dev
 npm run build
 ```
+
+## Forking Notes
+
+- Edit the `levels` array in `src/App.tsx` to add or remix rooms.
+- Level layouts use `#` for walls, `S` for spawn, and `E` for exit.
+- Add `fixes`, `switches`, and `enemies` as row/column objects so the canvas and collision system stay aligned.
+- Keep the browser test hooks if you want automated game QA.

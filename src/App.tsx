@@ -88,6 +88,13 @@ type GameState = {
   pulseRing: { x: number; y: number; age: number } | null;
 };
 
+type BestRun = {
+  score: number;
+  time: number | null;
+};
+
+const BEST_RUN_KEY = "foxhen-debug-dungeon-best-run";
+
 const levels: LevelDefinition[] = [
   {
     name: "Contrast Gate",
@@ -229,6 +236,31 @@ const levels: LevelDefinition[] = [
 
 const basePlayer: Player = { x: 60, y: 60, radius: 13, speed: 190 };
 
+function loadBestRun(): BestRun {
+  try {
+    const stored = window.localStorage.getItem(BEST_RUN_KEY);
+    if (!stored) {
+      return { score: 0, time: null };
+    }
+    const parsed = JSON.parse(stored) as Partial<BestRun>;
+    return {
+      score: typeof parsed.score === "number" ? parsed.score : 0,
+      time: typeof parsed.time === "number" ? parsed.time : null,
+    };
+  } catch {
+    return { score: 0, time: null };
+  }
+}
+
+function formatTime(seconds: number | null) {
+  if (seconds === null) {
+    return "—";
+  }
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = Math.floor(seconds % 60).toString().padStart(2, "0");
+  return `${minutes}:${remainingSeconds}`;
+}
+
 function tileCenter(point: TilePoint) {
   return {
     x: point.column * TILE_SIZE + TILE_SIZE / 2,
@@ -348,6 +380,7 @@ function exitUnlocked(level: LevelRuntime) {
 function App() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const stateRef = useRef<GameState>(freshState());
+  const [bestRun, setBestRun] = useState<BestRun>(() => loadBestRun());
   const [, forceRender] = useState(0);
 
   function sync() {
@@ -371,6 +404,45 @@ function App() {
   function startGame() {
     (document.activeElement as HTMLElement | null)?.blur();
     stateRef.current = freshState("playing");
+    sync();
+  }
+
+  function startPracticeRoom(levelIndex: number) {
+    const nextState = freshState("playing");
+    stateRef.current = nextState;
+    loadLevel(levelIndex);
+    nextState.message = `${nextState.level.definition.name} practice loaded. ${nextState.level.definition.tip}`;
+    sync();
+  }
+
+  function saveBestRun(score: number, elapsed: number) {
+    const currentBest = loadBestRun();
+    const nextBest = {
+      score: Math.max(currentBest.score, score),
+      time: currentBest.time === null || score >= currentBest.score ? elapsed : currentBest.time,
+    };
+    setBestRun(nextBest);
+    try {
+      window.localStorage.setItem(BEST_RUN_KEY, JSON.stringify(nextBest));
+    } catch {
+    }
+  }
+
+  function resetBestRun() {
+    const emptyBest = { score: 0, time: null };
+    setBestRun(emptyBest);
+    try {
+      window.localStorage.removeItem(BEST_RUN_KEY);
+    } catch {
+    }
+  }
+
+  function nudgePlayer(horizontal: number, vertical: number) {
+    const state = stateRef.current;
+    if (state.mode !== "playing") {
+      return;
+    }
+    movePlayer(horizontal * 26, vertical * 26);
     sync();
   }
 
@@ -481,12 +553,44 @@ function App() {
     if (state.levelIndex === levels.length - 1) {
       state.mode = "won";
       state.score += Math.max(0, Math.round(1000 - state.elapsed * 3));
+      saveBestRun(state.score, state.elapsed);
       state.message = "Dungeon cleared. QA closeout packaged.";
     } else {
       loadLevel(state.levelIndex + 1);
       state.score += 150;
     }
     sync();
+  }
+
+  function buildRunReport() {
+    const state = stateRef.current;
+    return {
+      generatedAt: new Date().toISOString(),
+      game: "Debug Dungeon",
+      status: state.mode,
+      score: state.score,
+      bestScore: bestRun.score,
+      elapsedSeconds: Number(state.elapsed.toFixed(2)),
+      room: state.level.definition.name,
+      health: state.health,
+      fixesRemaining: state.level.fixes.filter((fix) => !fix.collected).map((fix) => fix.label),
+      switchesRemaining: state.level.switches.filter((switchSeed) => !switchSeed.active).map((switchSeed) => switchSeed.label),
+      forkNotes: [
+        "Edit the levels array to add rooms, walls, fixes, switches, and patrol paths.",
+        "Layouts use # for walls, S for spawn, and E for exit.",
+        "The game exposes render_game_to_text and advanceTime for automated QA.",
+      ],
+    };
+  }
+
+  function downloadRunReport() {
+    const payload = JSON.stringify(buildRunReport(), null, 2);
+    const url = URL.createObjectURL(new Blob([payload], { type: "application/json" }));
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "debug-dungeon-run-report.json";
+    link.click();
+    URL.revokeObjectURL(url);
   }
 
   function update(dt: number) {
@@ -851,6 +955,7 @@ function App() {
             <button onClick={togglePause}>{state.mode === "paused" ? "Resume" : "Pause"}</button>
             <button onClick={dash}>Dash</button>
             <button onClick={pulse}>Pulse</button>
+            <button onClick={downloadRunReport}>Export run report</button>
           </div>
           <div className="stat-grid">
             <article><span>Score</span><strong>{state.score}</strong><small>fixes, switches, speed</small></article>
@@ -859,6 +964,28 @@ function App() {
             <article><span>Objective</span><strong>{fixesRemaining + switchesRemaining}</strong><small>{fixesRemaining} fixes · {switchesRemaining} switches</small></article>
             <article><span>Dash</span><strong>{state.dashCooldown <= 0 ? "ready" : state.dashCooldown.toFixed(1)}</strong><small>mobility cooldown</small></article>
             <article><span>Pulse</span><strong>{state.pulseCooldown <= 0 ? "ready" : state.pulseCooldown.toFixed(1)}</strong><small>stun cooldown</small></article>
+            <article><span>Best</span><strong>{bestRun.score}</strong><small>{formatTime(bestRun.time)} stored locally</small></article>
+            <article><span>Elapsed</span><strong>{formatTime(state.elapsed)}</strong><small>speed bonus matters</small></article>
+          </div>
+          <div className="practice-panel">
+            <label>
+              Practice room
+              <select value={state.levelIndex} onChange={(event) => startPracticeRoom(Number(event.target.value))}>
+                {levels.map((level, index) => <option key={level.name} value={index}>{index + 1}. {level.name}</option>)}
+              </select>
+            </label>
+            <button onClick={resetBestRun}>Reset best</button>
+          </div>
+          <div className="touch-pad" aria-label="Touch controls">
+            <button onClick={() => nudgePlayer(0, -1)}>↑</button>
+            <button onClick={() => nudgePlayer(-1, 0)}>←</button>
+            <button onClick={interact}>E</button>
+            <button onClick={() => nudgePlayer(1, 0)}>→</button>
+            <button onClick={() => nudgePlayer(0, 1)}>↓</button>
+          </div>
+          <div className="fork-card">
+            <strong>Forkable game template</strong>
+            <span>Edit plain TypeScript level maps, swap labels, add rooms, and keep the exposed QA hooks for automated tests.</span>
           </div>
           <p className="game-log">{state.message}</p>
         </aside>
