@@ -1,6 +1,6 @@
 # Debug Dungeon
 
-Public Fox & Hen portfolio sample for **Website bugfix game demo**.
+A playable visual QA mini-game where each dungeon room is a website bug to fix.
 
 ![Demo screenshot](docs/demo-screenshot.png)
 
@@ -9,18 +9,12 @@ Public Fox & Hen portfolio sample for **Website bugfix game demo**.
 - Demo: [https://foxhen-debug-dungeon.vercel.app](https://foxhen-debug-dungeon.vercel.app)
 - Repository: [https://github.com/foxandhenllc/foxhen-debug-dungeon](https://github.com/foxandhenllc/foxhen-debug-dungeon)
 
-## What This Demonstrates
+## Fully Working Behaviors
 
-- A public portfolio piece that makes QA work feel tangible.
-- Shows interactivity and visual taste without real customer code.
-- Designed as a lightweight browser game.
-
-## Interactions To Try
-
-- Click through the workflow stage cards.
-- Adjust the sprint-intensity range control.
-- Toggle scope, QA, handoff, and reuse checks to change the readiness score.
-- Review the handoff package and timeline sections.
+- Playable local state with scoring and success/failure conditions.
+- Keyboard or click controls documented in the interface.
+- Deterministic test hooks exposed as `window.render_game_to_text` and `window.advanceTime`.
+- No backend, auth, external service calls, production data, or customer work.
 
 ## Local Run
 
@@ -29,7 +23,3 @@ npm install
 npm run dev
 npm run build
 ```
-
-## Public-Safe Scope
-
-This is a static React/Vite demo with fictional sample data. It includes no production data, credentials, real contacts, or copied customer work. It is intended to show Fox & Hen's workflow, product judgment, and delivery style for fast fixed-scope service work.
