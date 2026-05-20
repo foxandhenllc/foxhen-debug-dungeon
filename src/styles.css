@@ -41,12 +41,13 @@ h1 { margin: 0 0 1rem; font-size: clamp(3rem,7vw,6rem); line-height: .88; letter
 .controls span { display: inline-flex; width: fit-content; border: 1px solid rgba(255,255,255,.15); border-radius: 999px; padding: .42rem .7rem; background: rgba(255,255,255,.08); font-weight: 900; }
 .action-row { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.3rem; }
 .action-row button { min-height: 3rem; border: 0; border-radius: 999px; padding: 0 1rem; cursor: pointer; font-weight: 950; }
-.action-row button:first-child { background: #ffc76b; color: #110d07; }
-.action-row button:last-child { background: rgba(255,255,255,.12); color: #fffaf4; border: 1px solid rgba(255,255,255,.16); }
+.action-row button { background: rgba(255,255,255,.12); color: #fffaf4; border: 1px solid rgba(255,255,255,.16); }
+.action-row button:first-child { background: #ffc76b; color: #110d07; border-color: transparent; }
 .stat-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: .75rem; margin-top: 1rem; }
 .stat-grid article { border-radius: 1.2rem; background: rgba(255,255,255,.08); padding: 1rem; }
 .stat-grid span, .stat-grid small { display: block; color: rgba(255,250,244,.62); font-weight: 850; }
 .stat-grid strong { display: block; margin: .35rem 0 .15rem; font-size: 2.1rem; letter-spacing: -.06em; }
+.game-log { margin: 1rem 0 0; border: 1px solid rgba(255,255,255,.13); border-radius: 1.1rem; background: rgba(255,255,255,.07); padding: .85rem 1rem; color: rgba(255,250,244,.76); font-weight: 850; line-height: 1.4; }
 .game-card { padding: .9rem; }
 canvas { display: block; width: 100%; aspect-ratio: 16/10; border-radius: 1.4rem; background: #10131f; outline: 1px solid rgba(255,255,255,.12); }
 .prompt-board { display: grid; grid-template-columns: minmax(260px,.8fr) minmax(0,1fr); gap: 1rem; }
