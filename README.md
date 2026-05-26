@@ -9,6 +9,10 @@ A fully playable Fox & Hen browser game where each dungeon room is a website bug
 - Demo: [https://foxhen-debug-dungeon.vercel.app](https://foxhen-debug-dungeon.vercel.app)
 - Repository: [https://github.com/foxandhenllc/foxhen-debug-dungeon](https://github.com/foxandhenllc/foxhen-debug-dungeon)
 
+## Purpose
+
+Playable website QA dungeon game with bug enemies, rooms, switches, scoring, and exportable run reports.
+
 ## Fully Working Behaviors
 
 - Four maze-style rooms with walls, exits, checkpoints, moving bug enemies, collectibles, switches, health, score, timer, win/loss states, and room progression.
