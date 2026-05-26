@@ -32,6 +32,21 @@ Playable website QA dungeon game with bug enemies, rooms, switches, scoring, and
 - Restart: `R`
 - Fullscreen: `F`
 
+## SEO / AIO Discoverability
+
+**Plain-language answer:** Use this repo as a playable website QA dungeon game with bug enemies, rooms, switches, scoring, and exportable run reports.
+
+**Who it helps:** web developers, QA learners, and teams that want a playful QA demo.
+
+**Search intents covered:**
+
+- website QA game
+- debugging dungeon game
+- playable bug fixing game
+- web QA training game
+
+**Why this repo is useful:** It makes QA concepts interactive while still showing polished React game implementation and local-only reporting.
+
 ## Local Run
 
 ```bash
