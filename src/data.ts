@@ -8,7 +8,7 @@ export const sample = {
   "primaryAction": "Start run",
   "secondaryAction": "Open bug log",
   "repositoryUrl": "https://github.com/foxandhenllc/foxhen-debug-dungeon",
-  "liveDemoUrl": "https://foxhen-debug-dungeon.vercel.app",
+  "liveDemoUrl": "https://freetoolsforpeople.com/debug-dungeon",
   "theme": {
     "accent": "#32306e",
     "accent2": "#ff9f6d",

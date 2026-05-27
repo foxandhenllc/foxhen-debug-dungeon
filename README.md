@@ -6,7 +6,7 @@ A fully playable Fox & Hen browser game where each dungeon room is a website bug
 
 ## Live Demo
 
-- Demo: [https://foxhen-debug-dungeon.vercel.app](https://foxhen-debug-dungeon.vercel.app)
+- Demo: [https://freetoolsforpeople.com/debug-dungeon](https://freetoolsforpeople.com/debug-dungeon)
 - Repository: [https://github.com/foxandhenllc/foxhen-debug-dungeon](https://github.com/foxandhenllc/foxhen-debug-dungeon)
 
 ## Purpose

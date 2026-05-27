@@ -23,7 +23,7 @@
     "node": ">=20"
   },
   "description": "Playable website QA dungeon game with bug enemies, rooms, switches, scoring, and exportable run reports.",
-  "homepage": "https://foxhen-debug-dungeon.vercel.app",
+  "homepage": "https://freetoolsforpeople.com/debug-dungeon",
   "keywords": [
     "bug",
     "canvas",

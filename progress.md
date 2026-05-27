@@ -1,4 +1,4 @@
-Original prompt: Please go ahead and actually like, make the stuff, though. Please. Like https://foxhen-debug-dungeon.vercel.app/ should actually have a game in it fully developed and playable. I need all repos/demos fully working.
+Original prompt: Please go ahead and actually like, make the stuff, though. Please. Like https://freetoolsforpeople.com/debug-dungeon/ should actually have a game in it fully developed and playable. I need all repos/demos fully working.
 
 - Upgraded from brochure demo to a working interactive sample.
 - Includes deterministic test hooks for browser/game verification.
