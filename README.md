@@ -1,5 +1,7 @@
 # Debug Dungeon
 
+[![Build](https://github.com/foxandhenllc/foxhen-debug-dungeon/actions/workflows/build.yml/badge.svg)](https://github.com/foxandhenllc/foxhen-debug-dungeon/actions/workflows/build.yml)
+
 A fully playable Fox & Hen browser game where each dungeon room is a website bug to fix.
 
 ![Demo screenshot](docs/demo-screenshot.png)
@@ -47,6 +49,13 @@ Playable website QA dungeon game with bug enemies, rooms, switches, scoring, and
 
 **Why this repo is useful:** It makes QA concepts interactive while still showing polished React game implementation and local-only reporting.
 
+## Open Source Readiness
+
+- MIT licensed for reuse, remixing, and client-safe adaptation.
+- GitHub Actions build workflow runs install, typecheck, tests when present, and production build.
+- Contribution guide, roadmap, and issue templates are included for public collaboration.
+- Public-safe data policy keeps examples fictional and reviewable.
+
 ## Local Run
 
 ```bash
@@ -61,3 +70,19 @@ npm run build
 - Level layouts use `#` for walls, `S` for spawn, and `E` for exit.
 - Add `fixes`, `switches`, and `enemies` as row/column objects so the canvas and collision system stay aligned.
 - Keep the browser test hooks if you want automated game QA.
+
+## Validation
+
+```bash
+npm run typecheck --if-present
+npm run test --if-present
+npm run build --if-present
+```
+
+## Contributing
+
+See `CONTRIBUTING.md` for public-safe contribution rules, local validation commands, and good first contribution ideas. Roadmap items live in `ROADMAP.md`.
+
+## License
+
+MIT - see `LICENSE`.
